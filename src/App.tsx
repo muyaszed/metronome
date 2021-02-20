@@ -5,7 +5,9 @@ function App() {
   return (
     <div className="App">
       <div className="main-container">
-        <div className="header"></div>
+        <div className="header">
+          <div className="header-text">DIGITAL METRONOME</div>
+        </div>
         <div className="content-container">
           <div className="beat-visual">
             <div className="circle-shadow-animate"></div>
