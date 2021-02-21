@@ -8,11 +8,13 @@ describe('BPMSelectionGroupButtons', () => {
       buttons: [
         {
           title: '72 BPM',
-          active: false
+          active: false,
+          bpmValue: 72,
         }, 
         {
           title: '74 BPM',
-          active: false
+          active: false,
+          bpmValue: 74,
         }, 
       ],
       handleOnClick: jest.fn(),

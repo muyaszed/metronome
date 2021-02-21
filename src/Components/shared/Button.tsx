@@ -4,8 +4,8 @@ interface Props {
   title: string;
   handleOnClick: () => void;
   className: string;
-  active: boolean;
-  activeClassName: string;
+  active?: boolean;
+  activeClassName?: string;
 }
 
 const Button = ({ 

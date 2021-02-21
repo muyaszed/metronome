@@ -4,14 +4,16 @@ import Button from './shared/Button';
 export interface ButtonInfo {
   title: string;
   active: boolean;
+  bpmValue: number;
 }
 
 interface Props {
   buttons: ButtonInfo[];
-  handleOnClick: () => void;
+  handleOnClick: (index: number) => void;
+  handleChangeVisual: () => void;
 }
 
-const BPMSelectionGroupButtons = ({ buttons, handleOnClick }: Props) => {
+const BPMSelectionGroupButtons = ({ buttons, handleOnClick, handleChangeVisual }: Props) => {
   const [buttonsCurrentStatus, setCurrentButtonsStatus] = React.useState<ButtonInfo[]>(buttons);
 
   const handleBtnOnClick = (currentIndex: number) => {
@@ -26,23 +28,30 @@ const BPMSelectionGroupButtons = ({ buttons, handleOnClick }: Props) => {
           active: false,
         })
     );
-    handleOnClick();
+    handleOnClick(currentIndex);
   }
 
   return (
-    <div className="beat-selection"> 
-      {
-          buttonsCurrentStatus.map((buttonInfo: ButtonInfo, index: number) => (
-            <Button 
-              key={`button-${index}`}
-              className="bpm-selection-button" 
-              title={buttonInfo.title} 
-              handleOnClick={() => handleBtnOnClick(index)}
-              active={buttonInfo.active}
-              activeClassName="bpm-selection-button-active"
-            />
-          ))
-      }
+    <div className="buttons-container">
+      <div className="beat-selection"> 
+        {
+            buttonsCurrentStatus.map((buttonInfo: ButtonInfo, index: number) => (
+              <Button 
+                key={`button-${index}`}
+                className="bpm-selection-button" 
+                title={buttonInfo.title} 
+                handleOnClick={() => handleBtnOnClick(index)}
+                active={buttonInfo.active}
+                activeClassName="bpm-selection-button-active"
+              />
+            ))
+        }
+      </div>
+      <Button 
+        className="visual-change-button" 
+        title="CHANGE VISUAL" 
+        handleOnClick={handleChangeVisual}
+      />
     </div>
   )
 }

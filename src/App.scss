@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
+:root {
+  --duration-value: 0s;
+  --beat-type: circle-beat-1;
+}
+
 body {
   font-family: "Roboto", sans-serif;
 }
@@ -54,6 +59,7 @@ body {
           display: flex;
           justify-content: center;
           align-items: center;
+          cursor: pointer;
 
           .selected-bpm {
             opacity: 0.5;
@@ -69,22 +75,53 @@ body {
 
         .circle-shadow-animate {
           @extend .circle;
-
-          animation-name: circle-beat;
-          animation-duration: 0.6777s;
+          animation-name: var(--beat-type);
           animation-iteration-count: infinite;
+        }
+
+        .bpm-active {
+          @extend .circle-shadow-animate;
+          animation-duration: var(--duration-value);
         }
       }
 
-      .beat-selection {
+      .buttons-container {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
+        justify-content: center;
+        flex-direction: column;
         padding: 0 17%;
-        margin-top: 35px;
 
-        .bpm-selection-button {
-          width: 86px;
+        .beat-selection {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-evenly;
+          margin-top: 35px;
+
+          .bpm-selection-button {
+            width: 86px;
+            height: 35px;
+            border: 0;
+            background: #2d1c3f;
+            border-radius: 5px;
+            color: #8eacff;
+            font-size: 14px;
+            font-family: inherit;
+            margin: 10px 0;
+            cursor: pointer;
+            outline: none;
+          }
+
+          .bpm-selection-button:hover {
+            box-shadow: 0 0 15px 0 rgba(204, 204, 204, 0.719);
+          }
+
+          .bpm-selection-button-active {
+            background-color: #8eacff;
+            color: #161020;
+          }
+        }
+
+        .visual-change-button {
           height: 35px;
           border: 0;
           background: #2d1c3f;
@@ -95,31 +132,32 @@ body {
           margin: 10px 0;
           cursor: pointer;
           outline: none;
-        }
-
-        .bpm-selection-button:hover {
-          box-shadow: 0 0 15px 0 rgba(204, 204, 204, 0.719);
-        }
-
-        .bpm-selection-button-active {
-          background-color: #8eacff;
-          color: #161020;
+          margin: 10px 20px;
         }
       }
     }
   }
 }
 
-@keyframes circle-beat {
+@keyframes circle-beat-1 {
   0% {
     transform: scale(1, 1);
     opacity: 1;
   }
-  50% {
-    opacity: 0.5;
-  }
   100% {
     transform: scale(1.8, 1.8);
     opacity: 0.1;
+  }
+}
+
+@keyframes circle-beat-2 {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 0.1;
+    box-shadow: 0 0 200px 200px rgba(204, 204, 204, 0.719);
   }
 }
