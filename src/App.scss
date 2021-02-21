@@ -8,8 +8,9 @@ body {
   display: flex;
   justify-content: center;
   background-color: #161020;
-  width: 100vw;
   height: 100vh;
+  padding: 0;
+  margin: 0;
 
   .main-container {
     min-width: 476px;
@@ -35,6 +36,7 @@ body {
       display: flex;
       justify-content: center;
       width: 100%;
+      flex-direction: column;
 
       .beat-visual {
         display: flex;
@@ -71,6 +73,27 @@ body {
           animation-name: circle-beat;
           animation-duration: 0.6777s;
           animation-iteration-count: infinite;
+        }
+      }
+
+      .beat-selection {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        padding: 0 17%;
+        margin-top: 35px;
+
+        .bpm-selection-button {
+          width: 86px;
+          height: 35px;
+          border: 0;
+          background: #2d1c3f;
+          border-radius: 5px;
+          color: #8eacff;
+          font-size: 14px;
+          font-family: inherit;
+          margin: 10px 0;
+          // flex: 0 19%;
         }
       }
     }
