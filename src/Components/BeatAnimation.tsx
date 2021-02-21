@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 
 interface Props {
   selectedBPM: string;
 }
 
-const BeatAnimation: React.FC<Props> = ({ selectedBPM }) => {
+const BeatAnimation = ({ selectedBPM }: Props) => {
   return (
     <div className="beat-visual">
       <div className="circle-shadow-animate"></div>
