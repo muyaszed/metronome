@@ -7,6 +7,8 @@ describe('Button', () => {
     title: '72 BPM',
     handleOnClick: jest.fn(),
     className: 'action-button',
+    active: false,
+    activeClassName: '',
   };
 
   test('render correct button text', () => {
