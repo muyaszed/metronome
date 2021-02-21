@@ -7,18 +7,19 @@
 
 body {
   font-family: "Roboto", sans-serif;
+  background-color: #161020;
 }
 
 .App {
   display: flex;
   justify-content: center;
-  background-color: #161020;
   height: 100vh;
+  width: 100%;
   padding: 0;
   margin: 0;
 
   .main-container {
-    min-width: 476px;
+    width: 476px;
     display: flex;
     flex-direction: column;
 
@@ -132,7 +133,49 @@ body {
           margin: 10px 0;
           cursor: pointer;
           outline: none;
-          margin: 10px 20px;
+          margin: 10px 15px;
+        }
+      }
+
+      .song-description {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+
+        .song-description-header {
+          width: 100%;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          text-align: center;
+          color: #8eacff;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .song-description-songs-list {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          padding: 0 15%;
+          .song-loading {
+            width: 100%;
+            color: #9d9ba2;
+          }
+          .song-list-item {
+            color: #9d9ba2;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            .song-name {
+              font-size: 14px;
+              padding-right: 50px;
+            }
+            .song-album-cover img {
+              width: 50px;
+            }
+          }
         }
       }
     }

@@ -2,7 +2,8 @@ import React from 'react';
 import './App.scss';
 import BeatAnimation, { BeatVisuals, Visuals } from './Components/BeatAnimation';
 import BPMSelectionGroupButtons, { ButtonInfo } from './Components/BPMSelectionGroupButtons';
-
+import SongList from './Components/SongList';
+import { SongInfo, useGetSongsByBPM } from './Services/API/useGetSongByBPM'
 
 const BPMSelectionOptions: ButtonInfo[] = [
   {
@@ -51,16 +52,32 @@ const visuals: Visuals[] = [
 
 
 function App() {
+  const [buttonsCurrentStatus, setCurrentButtonsStatus] = React.useState<ButtonInfo[]>(BPMSelectionOptions);
   const [selectedBPM, setSelectedBPM] = React.useState('');
   const [visualActive, setVisualActive] = React.useState(false);
   const [currentVisual, setCurrentVisual] = React.useState(visuals[0]);
+  const [songsAreLoading, setSongBPM, songError, songDatas] = useGetSongsByBPM(); 
 
   const handleOnClick = (selectedIndex: number) => {
-    const selectedBPMValue = BPMSelectionOptions[selectedIndex].bpmValue;
+    const selectedBPMValue = buttonsCurrentStatus[selectedIndex].bpmValue;
     const duration = 60/selectedBPMValue;
     document.documentElement.style.setProperty('--duration-value', `${duration}s`)
+
+    setCurrentButtonsStatus(
+      buttonsCurrentStatus.map((button, index) => selectedIndex === index
+        ? {
+          ...button,
+          active: true,
+        }
+        : {
+          ...button,
+          active: false,
+        })
+    );
+
     setSelectedBPM(String(selectedBPMValue));
     setVisualActive(true);
+    setSongBPM(String(selectedBPMValue));
   };
 
   const handleVisualClick = () => {
@@ -81,7 +98,6 @@ function App() {
       document.documentElement.style.setProperty('--beat-type', `${visuals[nextIndex].name}`)
       setCurrentVisual(visuals[nextIndex]);
     }
-    
   }
 
   return (
@@ -92,11 +108,8 @@ function App() {
         </div>
         <div className="content-container">
           <BeatAnimation visualActive={visualActive} handleOnClick={handleVisualClick} selectedBPM={selectedBPM} />
-          <BPMSelectionGroupButtons buttons={BPMSelectionOptions} handleOnClick={handleOnClick} handleChangeVisual={handleChangeVisual} />
-          <div className="song-description">
-            <div className="song-description-header"></div>
-            <div className="song-description-songs-list"></div>
-          </div>
+          <BPMSelectionGroupButtons buttons={buttonsCurrentStatus} handleOnClick={handleOnClick} handleChangeVisual={handleChangeVisual} />
+          <SongList selectedBPM={selectedBPM} songsAreLoading={songsAreLoading} songDatas={songDatas} />
         </div> 
       </div>
     </div>

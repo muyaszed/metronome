@@ -14,28 +14,21 @@ interface Props {
 }
 
 const BPMSelectionGroupButtons = ({ buttons, handleOnClick, handleChangeVisual }: Props) => {
-  const [buttonsCurrentStatus, setCurrentButtonsStatus] = React.useState<ButtonInfo[]>(buttons);
 
   const handleBtnOnClick = (currentIndex: number) => {
-    setCurrentButtonsStatus(
-      buttonsCurrentStatus.map((button, index) => currentIndex === index
-        ? {
-          ...button,
-          active: true,
-        }
-        : {
-          ...button,
-          active: false,
-        })
-    );
-    handleOnClick(currentIndex);
+    handleOnClick(currentIndex); 
+  }
+
+  const enableChangeButton = () => {
+    console.log(buttons.filter(item => item.active === true).length);
+    return buttons.filter(item => item.active === true).length > 0; 
   }
 
   return (
     <div className="buttons-container">
       <div className="beat-selection"> 
         {
-            buttonsCurrentStatus.map((buttonInfo: ButtonInfo, index: number) => (
+            buttons.map((buttonInfo: ButtonInfo, index: number) => (
               <Button 
                 key={`button-${index}`}
                 className="bpm-selection-button" 
@@ -47,11 +40,11 @@ const BPMSelectionGroupButtons = ({ buttons, handleOnClick, handleChangeVisual }
             ))
         }
       </div>
-      <Button 
+      {enableChangeButton() ? <Button 
         className="visual-change-button" 
         title="CHANGE VISUAL" 
         handleOnClick={handleChangeVisual}
-      />
+      /> : null}
     </div>
   )
 }
