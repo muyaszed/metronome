@@ -93,7 +93,17 @@ body {
           font-size: 14px;
           font-family: inherit;
           margin: 10px 0;
-          // flex: 0 19%;
+          cursor: pointer;
+          outline: none;
+        }
+
+        .bpm-selection-button:hover {
+          box-shadow: 0 0 15px 0 rgba(204, 204, 204, 0.719);
+        }
+
+        .bpm-selection-button-active {
+          background-color: #8eacff;
+          color: #161020;
         }
       }
     }

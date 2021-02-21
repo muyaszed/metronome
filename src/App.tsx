@@ -1,8 +1,34 @@
 import React from 'react';
 import './App.scss';
-import BPMSelectionGroupButtons from './Components/BPMSelectionGroupButtons';
+import BPMSelectionGroupButtons, { ButtonInfo } from './Components/BPMSelectionGroupButtons';
 
-const BPMSelectionOptions = ['72 BPM', '74 BPM', '82 BPM', '84 BPM', '128 BPM', '138 BPM'];
+
+const BPMSelectionOptions: ButtonInfo[] = [
+  {
+    title: '72 BPM',
+    active: false
+  }, 
+  {
+    title: '74 BPM',
+    active: false
+  }, 
+  {
+    title: '82 BPM',
+    active: false,
+  }, 
+  {
+    title:'84 BPM',
+    active: false,
+  }, 
+  {
+    title: '128 BPM',
+    active: false,
+  },
+  {
+    title: '138 BPM',
+    active: false,
+  }
+];
 
 function App() {
 
@@ -23,7 +49,7 @@ function App() {
               <div className="selected-bpm">72</div>
             </div>
           </div>
-          <BPMSelectionGroupButtons buttonTitles={BPMSelectionOptions} handleOnClick={handleOnClick} />
+          <BPMSelectionGroupButtons buttons={BPMSelectionOptions} handleOnClick={handleOnClick} />
           <div className="song-description"></div>
         </div>
       </div>

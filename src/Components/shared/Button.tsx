@@ -4,11 +4,19 @@ interface Props {
   title: string;
   handleOnClick: () => void;
   className: string;
+  active: boolean;
+  activeClassName: string;
 }
 
-const Button = ({ title, handleOnClick, className }: Props) => {
+const Button = ({ 
+  title, 
+  handleOnClick,
+  className,
+  active = false,
+  activeClassName = ''
+}: Props) => {
   return (
-    <button onClick={handleOnClick} className={className}>{title}</button>
+    <button onClick={handleOnClick} className={`${className} ${active ? activeClassName : ''}`}>{title}</button>
   );
 };
 

@@ -1,22 +1,45 @@
 import React from 'react'
 import Button from './shared/Button';
 
+export interface ButtonInfo {
+  title: string;
+  active: boolean;
+}
+
 interface Props {
-  buttonTitles: string[];
+  buttons: ButtonInfo[];
   handleOnClick: () => void;
 }
 
-const BPMSelectionGroupButtons = ({ buttonTitles, handleOnClick }: Props) => {
+const BPMSelectionGroupButtons = ({ buttons, handleOnClick }: Props) => {
+  const [buttonsCurrentStatus, setCurrentButtonsStatus] = React.useState<ButtonInfo[]>(buttons);
+
+  const handleBtnOnClick = (currentIndex: number) => {
+    setCurrentButtonsStatus(
+      buttonsCurrentStatus.map((button, index) => currentIndex === index
+        ? {
+          ...button,
+          active: true,
+        }
+        : {
+          ...button,
+          active: false,
+        })
+    );
+    handleOnClick();
+  }
 
   return (
     <div className="beat-selection"> 
       {
-          buttonTitles.map((buttonTitle: string, index: number) => (
+          buttonsCurrentStatus.map((buttonInfo: ButtonInfo, index: number) => (
             <Button 
               key={`button-${index}`}
               className="bpm-selection-button" 
-              title={buttonTitle} 
-              handleOnClick={handleOnClick}
+              title={buttonInfo.title} 
+              handleOnClick={() => handleBtnOnClick(index)}
+              active={buttonInfo.active}
+              activeClassName="bpm-selection-button-active"
             />
           ))
       }
