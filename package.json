@@ -80,7 +80,8 @@
     "build": "node scripts/build.js",
     "test": "run-p test:unit test:lint",
     "test:unit": "jest",
-    "test:lint": "eslint src/**/*.ts src/**/*.tsx"
+    "test:lint": "eslint src/**/*.ts src/**/*.tsx",
+    "test:typescript": "tsc"
   },
   "eslintConfig": {
     "extends": [
