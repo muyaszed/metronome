@@ -18,6 +18,7 @@ describe('BPMSelectionGroupButtons', () => {
         }, 
       ],
       handleOnClick: jest.fn(),
+      handleChangeVisual: jest.fn(),
     };
 
     render(<BPMSelectionGroupButtons {...mockedProps} />)
