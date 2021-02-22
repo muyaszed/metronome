@@ -158,9 +158,12 @@ body {
           justify-content: center;
           flex-direction: column;
           padding: 0 15%;
-          .song-loading {
+
+          .songs-loading {
             width: 100%;
             color: #9d9ba2;
+            text-align: center;
+            height: 100px;
           }
           .song-list-item {
             color: #9d9ba2;
