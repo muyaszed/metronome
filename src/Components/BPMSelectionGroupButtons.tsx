@@ -20,7 +20,6 @@ const BPMSelectionGroupButtons = ({ buttons, handleOnClick, handleChangeVisual }
   }
 
   const enableChangeButton = () => {
-    console.log(buttons.filter(item => item.active === true).length);
     return buttons.filter(item => item.active === true).length > 0; 
   }
 
