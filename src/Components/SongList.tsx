@@ -21,7 +21,7 @@ const SongList = ({ selectedBPM, songsAreLoading, songDatas }: Props) => {
             ) :
             songDatas.map((song: SongInfo, index: number) => {
               return (
-                <div className="song-list-item" key={index}>
+                <div data-testid="song-list" className="song-list-item" key={index}>
                   <div className="song-name">{`${song.name} (${song.artist})`}</div>
                   <div className="song-album-cover"><img src={song.albumCover} alt="artis album cover"/></div>
                 </div>
