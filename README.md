@@ -7,9 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 2. Different visual selection
 3. Top 10 song list.
 
-##Get Statrted
-
-
+## Get Statrted
 1. Clone this repo and install all the required
 ### `yarn install`
 
