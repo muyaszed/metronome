@@ -65,20 +65,36 @@ function App() {
   const [beatCount, setBeatCount] = React.useState(0);
   const [timer, setTimer] = React.useState(0);
 
-  const firstUpdate = React.useRef(true);
+  const firstUpdate1 = React.useRef(true);
+  const firstUpdate2 = React.useRef(true);
 
   React.useEffect(() => {
-    if(!firstUpdate.current) {
-      startSound(Number(selectedBPM));  
+    if(!firstUpdate1.current) {
+      if(visualActive) {
+        startSound(Number(selectedBPM));
+      } else {
+        resetSound();
+      }
+    } 
+
+    firstUpdate1.current = false;
+
+  }, [visualActive]);
+
+  React.useEffect(() => {
+    if(!firstUpdate2.current) {
+      playSound(); 
     }
 
-    firstUpdate.current = false;
-  }, [visualActive]);
+    firstUpdate2.current = false;
+  }, [beatCount])
 
   const handleOnClick = (selectedIndex: number) => {
     const selectedBPMValue = buttonsCurrentStatus[selectedIndex].bpmValue;
     const duration = 60/selectedBPMValue;
-
+   
+    resetSound();
+    setVisualActive(false);
     setCurrentButtonsStatus(
       buttonsCurrentStatus.map((button, index) => selectedIndex === index
         ? {
@@ -95,6 +111,7 @@ function App() {
     if(!visualActive) {
       setVisualActive(true);
     } else {
+      setVisualActive(true);
       startSound(selectedBPMValue);
     }
     setSongBPM(String(selectedBPMValue));
@@ -106,6 +123,7 @@ function App() {
       return;
     }
     setVisualActive(value => !value);
+    clearInterval(timer);
   }
 
   const handleChangeVisual = () => {
@@ -121,31 +139,23 @@ function App() {
     }
   }
 
-  const playSound = () => {
-    setBeatCount(count => {
-      if (count % beatPerMeasure === 0) {
-        firstSound.play();
-      }  else {
-        otherSound.play();
-      }
+  const resetSound = () => {
+    clearInterval(timer);
+    setTimer(0); 
+  }
 
-      return count+1;
-    });
+  const playSound = async () => {
+    if (beatCount % beatPerMeasure === 0) {
+      await firstSound.play();
+    }  else {
+      await otherSound.play();
+    }
   }
 
   const startSound = (selectedBPMValue: number) => {
-    if(!visualActive) {
-      clearInterval(timer);
-      setTimer(0); 
-      setBeatCount(0);       
-    } else {
-      clearInterval(timer);
-      setTimer(0);    
-      setTimer(window.setInterval(() => {
-        playSound();
+      setTimer(window.setInterval(async () => {
+        setBeatCount(v => v+1);
       }, (60/selectedBPMValue) * 1000));
-      setBeatCount(0);      
-    }
   }
 
   return (
