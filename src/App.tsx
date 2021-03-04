@@ -3,9 +3,8 @@ import './App.scss';
 import BeatAnimation, { BeatVisuals, Visuals } from './Components/BeatAnimation';
 import BPMSelectionGroupButtons, { ButtonInfo } from './Components/BPMSelectionGroupButtons';
 import SongList from './Components/SongList';
-import { useGetSongsByBPM } from './Services/API/useGetSongByBPM'
-import sound1 from './Assets/sounds/click2.wav';
-import sound2 from './Assets/sounds/click1.wav';
+import { useGetSongsByBPM } from './Services/API/useGetSongByBPM';
+import { useSound } from './Services/BeatSound/useSound';
 
 const BPMSelectionOptions: ButtonInfo[] = [
   {
@@ -59,35 +58,7 @@ function App() {
   const [visualActive, setVisualActive] = React.useState(false);
   const [currentVisual, setCurrentVisual] = React.useState(visuals[0]);
   const [songsAreLoading, setSongBPM, songError, songDatas] = useGetSongsByBPM();
-  const [firstSound] = React.useState(new Audio(sound1));
-  const [otherSound] = React.useState(new Audio(sound2)); 
-  const [beatPerMeasure] = React.useState(4);
-  const [beatCount, setBeatCount] = React.useState(0);
-  const [timer, setTimer] = React.useState(0);
-
-  const firstUpdate1 = React.useRef(true);
-  const firstUpdate2 = React.useRef(true);
-
-  React.useEffect(() => {
-    if(!firstUpdate1.current) {
-      if(visualActive) {
-        startSound(Number(selectedBPM));
-      } else {
-        resetSound();
-      }
-    } 
-
-    firstUpdate1.current = false;
-
-  }, [visualActive]);
-
-  React.useEffect(() => {
-    if(!firstUpdate2.current) {
-      playSound(); 
-    }
-
-    firstUpdate2.current = false;
-  }, [beatCount])
+  const [startSound, resetSound, timer] = useSound(visualActive, selectedBPM);
 
   const handleOnClick = (selectedIndex: number) => {
     const selectedBPMValue = buttonsCurrentStatus[selectedIndex].bpmValue;
@@ -137,25 +108,6 @@ function App() {
       document.documentElement.style.setProperty('--beat-type', `${visuals[nextIndex].name}`)
       setCurrentVisual(visuals[nextIndex]);
     }
-  }
-
-  const resetSound = () => {
-    clearInterval(timer);
-    setTimer(0); 
-  }
-
-  const playSound = async () => {
-    if (beatCount % beatPerMeasure === 0) {
-      await firstSound.play();
-    }  else {
-      await otherSound.play();
-    }
-  }
-
-  const startSound = (selectedBPMValue: number) => {
-      setTimer(window.setInterval(async () => {
-        setBeatCount(v => v+1);
-      }, (60/selectedBPMValue) * 1000));
   }
 
   return (
