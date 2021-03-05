@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import sound1 from '../../Assets/sounds/click1.wav';
+import sound1 from '../../Assets/sounds/click2.wav';
 import sound2 from '../../Assets/sounds/click1.wav';
 
 export const useSound = (visualActive: boolean, selectedBPM: string) => {
