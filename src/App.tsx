@@ -47,6 +47,10 @@ const visuals: Visuals[] = [
   {
     name: BeatVisuals.VISUAL2,
     active: false,
+  },
+  {
+    name: BeatVisuals.VISUAL3,
+    active: false,
   }
 ];
 
@@ -99,7 +103,6 @@ function App() {
 
   const handleChangeVisual = () => {
     const index = visuals.findIndex(visual => visual.name === currentVisual.name);
-
     if((visuals.length - index) === 1) {
       document.documentElement.style.setProperty('--beat-type', `${visuals[0].name}`)
       setCurrentVisual(visuals[0]);
@@ -107,6 +110,12 @@ function App() {
       const nextIndex = index + 1;
       document.documentElement.style.setProperty('--beat-type', `${visuals[nextIndex].name}`)
       setCurrentVisual(visuals[nextIndex]);
+    }
+
+    if(currentVisual.name === BeatVisuals.VISUAL2) {
+      document.documentElement.style.setProperty('--beat-extra', 'circle-beat-3-extra');
+    } else {
+      document.documentElement.style.setProperty('--beat-extra', 'circle-beat-3-none');
     }
   }
 
